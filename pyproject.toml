@@ -1,6 +1,6 @@
 [project]
 name = "llm-taxi"
-version = "0.2.0"
+version = "0.2.1"
 description = "Call LLM as easily as calling a taxi."
 authors = [{ name = "Yevgnen Koh", email = "wherejoystarts@gmail.com" }]
 dependencies = [
