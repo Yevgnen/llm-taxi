@@ -4,6 +4,7 @@ from collections.abc import Mapping
 from llm_taxi.llm import (
     LLM,
     Anthropic,
+    DeepInfra,
     Google,
     Groq,
     Mistral,
@@ -20,6 +21,7 @@ MODEL_CLASSES: Mapping[str, type[LLM]] = {
     "anthropic": Anthropic,
     "mistral": Mistral,
     "perplexity": Perplexity,
+    "deepinfra": DeepInfra,
 }
 
 
