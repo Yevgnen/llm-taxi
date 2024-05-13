@@ -1,6 +1,6 @@
 from typing import Any
 
-from llm_taxi.llm import OpenAI
+from llm_taxi.llms import OpenAI
 
 
 class Together(OpenAI):

@@ -1,7 +1,7 @@
 import os
 from collections.abc import Mapping
 
-from llm_taxi.llm import (
+from llm_taxi.llms import (
     LLM,
     Anthropic,
     DashScope,

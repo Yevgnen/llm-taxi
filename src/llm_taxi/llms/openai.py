@@ -1,28 +1,24 @@
 from collections.abc import AsyncGenerator
 from typing import Any
 
-from mistralai.async_client import MistralAsyncClient
-from mistralai.models.chat_completion import ChatMessage
-
 from llm_taxi.conversation import Conversation
-from llm_taxi.llm.openai import OpenAI
+from llm_taxi.llms import LLM
 
 
-class Mistral(OpenAI):
+class OpenAI(LLM):
     env_vars: dict[str, str] = {
-        "api_key": "MISTRAL_API_KEY",
+        "api_key": "OPENAI_API_KEY",
     }
 
     def _init_client(self, **kwargs) -> Any:
-        kwargs.pop("base_url", None)
+        from openai import AsyncClient
 
-        return MistralAsyncClient(**kwargs)
+        return AsyncClient(**kwargs)
 
-    def _convert_messages(self, conversation) -> list[Any]:
-        return [
-            ChatMessage(role=x.role.value, content=x.content)
-            for x in conversation.messages
-        ]
+    async def _streaming_response(self, response: Any) -> AsyncGenerator:
+        async for chunk in response:
+            if content := chunk.choices[0].delta.content:
+                yield content
 
     async def streaming_response(
         self,
@@ -31,8 +27,9 @@ class Mistral(OpenAI):
     ) -> AsyncGenerator:
         messages = self._convert_messages(conversation)
 
-        response = self.client.chat_stream(
+        response = await self.client.chat.completions.create(
             messages=messages,
+            stream=True,
             **self._get_call_kwargs(**kwargs),
         )
 
@@ -41,9 +38,12 @@ class Mistral(OpenAI):
     async def response(self, conversation: Conversation, **kwargs) -> str:
         messages = self._convert_messages(conversation)
 
-        response = await self.client.chat(
+        response = await self.client.chat.completions.create(
             messages=messages,
             **self._get_call_kwargs(**kwargs),
         )
 
-        return response.choices[0].message.content
+        if content := response.choices[0].message.content:
+            return content
+
+        return ""

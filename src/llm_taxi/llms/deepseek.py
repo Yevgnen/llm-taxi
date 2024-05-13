@@ -1,4 +1,4 @@
-from llm_taxi.llm.openai import OpenAI
+from llm_taxi.llms.openai import OpenAI
 
 
 class DeepSeek(OpenAI):

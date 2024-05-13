@@ -3,7 +3,7 @@ from collections.abc import AsyncGenerator
 from typing import Any
 
 from llm_taxi.conversation import Conversation, Role
-from llm_taxi.llm import LLM
+from llm_taxi.llms import LLM
 
 
 class Google(LLM):

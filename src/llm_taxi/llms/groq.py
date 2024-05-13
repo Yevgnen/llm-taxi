@@ -4,7 +4,7 @@ from groq import AsyncGroq
 from groq.types.chat.completion_create_params import Message
 
 from llm_taxi.conversation import Conversation
-from llm_taxi.llm.openai import OpenAI
+from llm_taxi.llms.openai import OpenAI
 
 
 class Groq(OpenAI):

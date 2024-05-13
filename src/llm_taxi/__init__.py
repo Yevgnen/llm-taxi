@@ -1,5 +1,5 @@
-from llm_taxi.factory import llm as llm_call
+from llm_taxi.factory import llm
 
 __all__ = [
-    "llm_call",
+    "llm",
 ]

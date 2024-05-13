@@ -6,7 +6,7 @@ from anthropic._types import NOT_GIVEN, NotGiven
 from anthropic.types import MessageParam
 
 from llm_taxi.conversation import Conversation, Role
-from llm_taxi.llm.base import LLM
+from llm_taxi.llms.base import LLM
 
 
 class Anthropic(LLM):
