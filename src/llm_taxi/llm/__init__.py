@@ -1,5 +1,6 @@
 from llm_taxi.llm.anthropic import Anthropic
 from llm_taxi.llm.base import LLM
+from llm_taxi.llm.dashscope import DashScope
 from llm_taxi.llm.deepinfra import DeepInfra
 from llm_taxi.llm.deepseek import DeepSeek
 from llm_taxi.llm.google import Google
@@ -22,4 +23,5 @@ __all__ = [
     "DeepInfra",
     "DeepSeek",
     "OpenRouter",
+    "DashScope",
 ]

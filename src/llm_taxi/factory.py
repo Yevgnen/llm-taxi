@@ -4,6 +4,7 @@ from collections.abc import Mapping
 from llm_taxi.llm import (
     LLM,
     Anthropic,
+    DashScope,
     DeepInfra,
     DeepSeek,
     Google,
@@ -26,6 +27,7 @@ MODEL_CLASSES: Mapping[str, type[LLM]] = {
     "deepinfra": DeepInfra,
     "deepseek": DeepSeek,
     "openrouter": OpenRouter,
+    "dashscope": DashScope,
 }
 
 
