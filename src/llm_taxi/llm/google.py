@@ -39,7 +39,7 @@ class Google(LLM):
 
         return genai.GenerativeModel(self.model)
 
-    def _convert_messages(self, conversation: Conversation) -> list[dict]:
+    def _convert_messages(self, conversation: Conversation) -> list[Any]:
         role_mappping = {
             Role.System: "user",
             Role.User: "user",

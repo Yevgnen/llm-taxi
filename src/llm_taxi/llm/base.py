@@ -41,7 +41,7 @@ class LLM(metaclass=abc.ABCMeta):
     def _init_client(self, **kwargs) -> Any:
         raise NotImplementedError
 
-    def _convert_messages(self, conversation: Conversation) -> list[dict]:
+    def _convert_messages(self, conversation: Conversation) -> list[Any]:
         return [
             {
                 "role": message.role.value,
