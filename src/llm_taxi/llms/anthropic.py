@@ -5,7 +5,7 @@ from anthropic import AsyncAnthropic
 from anthropic._types import NOT_GIVEN, NotGiven
 from anthropic.types import MessageParam
 
-from llm_taxi.conversation import Conversation, Role
+from llm_taxi.conversation import Message, Role
 from llm_taxi.llms.base import LLM
 
 
@@ -17,22 +17,22 @@ class Anthropic(LLM):
     def _init_client(self, **kwargs) -> Any:
         return AsyncAnthropic(**kwargs)
 
-    def _convert_messages(self, conversation: Conversation) -> list[MessageParam]:
+    def _convert_messages(self, messages: list[Message]) -> list[Any]:
         return [
             MessageParam(
                 role=cast(Literal["user", "assistant"], message.role.value),
                 content=message.content,
             )
-            for message in conversation.messages
+            for message in messages
             if message.role in {Role.User, Role.Assistant}
         ]
 
     def _get_system_message_content(
         self,
-        conversation: Conversation,
+        messages: list[Message],
     ) -> str | NotGiven:
         if message := next(
-            (x for x in reversed(conversation.messages) if x.role == Role.System),
+            (x for x in reversed(messages) if x.role == Role.System),
             NOT_GIVEN,
         ):
             return message.content
@@ -46,12 +46,12 @@ class Anthropic(LLM):
 
     async def streaming_response(
         self,
-        conversation: Conversation,
+        messages: list[Message],
         max_tokens: int = 4096,
         **kwargs,
     ) -> AsyncGenerator:
-        system_message = self._get_system_message_content(conversation)
-        messages = self._convert_messages(conversation)
+        system_message = self._get_system_message_content(messages)
+        messages = self._convert_messages(messages)
 
         response = await self.client.messages.create(
             system=system_message,
@@ -65,12 +65,12 @@ class Anthropic(LLM):
 
     async def response(
         self,
-        conversation: Conversation,
+        messages: list[Message],
         max_tokens: int = 4096,
         **kwargs,
     ) -> str:
-        system_message = self._get_system_message_content(conversation)
-        messages = self._convert_messages(conversation)
+        system_message = self._get_system_message_content(messages)
+        messages = self._convert_messages(messages)
 
         response = await self.client.messages.create(
             system=system_message,

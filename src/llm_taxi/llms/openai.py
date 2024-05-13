@@ -1,7 +1,7 @@
 from collections.abc import AsyncGenerator
 from typing import Any
 
-from llm_taxi.conversation import Conversation
+from llm_taxi.conversation import Message
 from llm_taxi.llms import LLM
 
 
@@ -22,10 +22,10 @@ class OpenAI(LLM):
 
     async def streaming_response(
         self,
-        conversation: Conversation,
+        messages: list[Message],
         **kwargs,
     ) -> AsyncGenerator:
-        messages = self._convert_messages(conversation)
+        messages = self._convert_messages(messages)
 
         response = await self.client.chat.completions.create(
             messages=messages,
@@ -35,8 +35,8 @@ class OpenAI(LLM):
 
         return self._streaming_response(response)
 
-    async def response(self, conversation: Conversation, **kwargs) -> str:
-        messages = self._convert_messages(conversation)
+    async def response(self, messages: list[Message], **kwargs) -> str:
+        messages = self._convert_messages(messages)
 
         response = await self.client.chat.completions.create(
             messages=messages,

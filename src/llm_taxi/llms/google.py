@@ -2,7 +2,7 @@ import itertools
 from collections.abc import AsyncGenerator
 from typing import Any
 
-from llm_taxi.conversation import Conversation, Role
+from llm_taxi.conversation import Message, Role
 from llm_taxi.llms import LLM
 
 
@@ -39,14 +39,14 @@ class Google(LLM):
 
         return genai.GenerativeModel(self.model)
 
-    def _convert_messages(self, conversation: Conversation) -> list[Any]:
+    def _convert_messages(self, messages: list[Message]) -> list[Any]:
         role_mappping = {
             Role.System: "user",
             Role.User: "user",
             Role.Assistant: "model",
         }
         groups = itertools.groupby(
-            conversation.messages,
+            messages,
             key=lambda x: role_mappping[Role(x.role)],
         )
 
@@ -64,12 +64,12 @@ class Google(LLM):
 
     async def streaming_response(
         self,
-        conversation: Conversation,
+        messages: list[Message],
         **kwargs,
     ) -> AsyncGenerator:
         from google import generativeai as genai
 
-        messages = self._convert_messages(conversation)
+        messages = self._convert_messages(messages)
 
         response = await self.client.generate_content_async(
             messages,
@@ -81,10 +81,10 @@ class Google(LLM):
 
         return self._streaming_response(response)
 
-    async def response(self, conversation: Conversation, **kwargs) -> str:
+    async def response(self, messages: list[Message], **kwargs) -> str:
         from google import generativeai as genai
 
-        messages = self._convert_messages(conversation)
+        messages = self._convert_messages(messages)
 
         response = await self.client.generate_content_async(
             messages,

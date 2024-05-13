@@ -14,9 +14,3 @@ class Message(BaseModel):
 
     role: Role
     content: str
-
-
-class Conversation(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    messages: list[Message]

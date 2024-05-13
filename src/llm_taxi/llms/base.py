@@ -2,7 +2,7 @@ import abc
 from collections.abc import AsyncGenerator
 from typing import Any
 
-from llm_taxi.conversation import Conversation
+from llm_taxi.conversation import Message
 
 
 class LLM(metaclass=abc.ABCMeta):
@@ -41,13 +41,13 @@ class LLM(metaclass=abc.ABCMeta):
     def _init_client(self, **kwargs) -> Any:
         raise NotImplementedError
 
-    def _convert_messages(self, conversation: Conversation) -> list[Any]:
+    def _convert_messages(self, messages: list[Message]) -> list[Any]:
         return [
             {
                 "role": message.role.value,
                 "content": message.content,
             }
-            for message in conversation.messages
+            for message in messages
         ]
 
     def _get_call_kwargs(self, **kwargs) -> dict:
@@ -56,11 +56,11 @@ class LLM(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def streaming_response(
         self,
-        conversation: Conversation,
+        messages: list[Message],
         **kwargs,
     ) -> AsyncGenerator:
         raise NotImplementedError
 
     @abc.abstractmethod
-    async def response(self, conversation: Conversation, **kwargs) -> str:
+    async def response(self, messages: list[Message], **kwargs) -> str:
         raise NotImplementedError

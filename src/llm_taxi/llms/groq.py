@@ -1,9 +1,9 @@
 from typing import Any
 
 from groq import AsyncGroq
-from groq.types.chat.completion_create_params import Message
+from groq.types.chat.completion_create_params import Message as GroqMessage
 
-from llm_taxi.conversation import Conversation
+from llm_taxi.conversation import Message
 from llm_taxi.llms.openai import OpenAI
 
 
@@ -15,8 +15,11 @@ class Groq(OpenAI):
     def _init_client(self, **kwargs) -> Any:
         return AsyncGroq(**kwargs)
 
-    def _convert_messages(self, conversation: Conversation) -> list[Message]:
+    def _convert_messages(self, messages: list[Message]) -> list[Any]:
         return [
-            Message(role=message.role.value, content=message.content)
-            for message in conversation.messages
+            GroqMessage(
+                role=message.role.value,
+                content=message.content,
+            )
+            for message in messages
         ]
