@@ -57,8 +57,7 @@ class Anthropic(LLM):
             system=system_message,
             messages=messages,
             stream=True,
-            max_tokens=max_tokens,
-            **self._get_call_kwargs(**kwargs),
+            **self._get_call_kwargs(max_tokens=max_tokens, **kwargs),
         )
 
         return self._streaming_response(response)
@@ -75,8 +74,7 @@ class Anthropic(LLM):
         response = await self.client.messages.create(
             system=system_message,
             messages=messages,
-            max_tokens=max_tokens,
-            **self._get_call_kwargs(**kwargs),
+            **self._get_call_kwargs(max_tokens=max_tokens, **kwargs),
         )
 
         return response.content[0].text
