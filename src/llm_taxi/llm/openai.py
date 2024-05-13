@@ -6,6 +6,10 @@ from llm_taxi.llm import LLM
 
 
 class OpenAI(LLM):
+    env_vars: dict[str, str] = {
+        "api_key": "OPENAI_API_KEY",
+    }
+
     def _init_client(self, **kwargs) -> Any:
         from openai import AsyncClient
 

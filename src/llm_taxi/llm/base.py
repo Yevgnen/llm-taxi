@@ -6,6 +6,8 @@ from llm_taxi.conversation import Conversation
 
 
 class LLM(metaclass=abc.ABCMeta):
+    env_vars: dict[str, str] = {}
+
     def __init__(
         self,
         *,
