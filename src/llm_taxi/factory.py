@@ -1,7 +1,7 @@
 import os
 from collections.abc import Mapping
 
-from llm_taxi.llm import LLM, Anthropic, Google, Groq, OpenAI, Together
+from llm_taxi.llm import LLM, Anthropic, Google, Groq, Mistral, OpenAI, Together
 
 MODEL_CLASSES: Mapping[str, type[LLM]] = {
     "openai": OpenAI,
@@ -9,6 +9,7 @@ MODEL_CLASSES: Mapping[str, type[LLM]] = {
     "together": Together,
     "groq": Groq,
     "anthropic": Anthropic,
+    "mistral": Mistral,
 }
 
 
