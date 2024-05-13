@@ -8,11 +8,19 @@
 #   with-sources: false
 
 -e file:.
+aiohttp==3.9.5
+    # via together
+aiosignal==1.3.1
+    # via aiohttp
 annotated-types==0.6.0
     # via pydantic
 anyio==4.3.0
     # via httpx
     # via openai
+async-timeout==4.0.3
+    # via aiohttp
+attrs==23.2.0
+    # via aiohttp
 cachetools==5.3.3
     # via google-auth
 certifi==2024.2.2
@@ -21,10 +29,20 @@ certifi==2024.2.2
     # via requests
 charset-normalizer==3.3.2
     # via requests
+click==8.1.7
+    # via together
+    # via typer
 distro==1.9.0
     # via openai
+eval-type-backport==0.2.0
+    # via together
 exceptiongroup==1.2.1
     # via anyio
+filelock==3.14.0
+    # via together
+frozenlist==1.4.1
+    # via aiohttp
+    # via aiosignal
 google-ai-generativelanguage==0.6.2
     # via google-generativeai
 google-api-core==2.19.0
@@ -65,8 +83,21 @@ idna==3.7
     # via anyio
     # via httpx
     # via requests
+    # via yarl
+markdown-it-py==3.0.0
+    # via rich
+mdurl==0.1.2
+    # via markdown-it-py
+multidict==6.0.5
+    # via aiohttp
+    # via yarl
+numpy==1.26.4
+    # via pyarrow
+    # via together
 openai==1.28.1
     # via llm-taxi
+pillow==10.3.0
+    # via together
 proto-plus==1.23.0
     # via google-ai-generativelanguage
     # via google-api-core
@@ -77,6 +108,8 @@ protobuf==4.25.3
     # via googleapis-common-protos
     # via grpcio-status
     # via proto-plus
+pyarrow==16.0.0
+    # via together
 pyasn1==0.6.0
     # via pyasn1-modules
     # via rsa
@@ -86,30 +119,48 @@ pydantic==2.7.1
     # via google-generativeai
     # via llm-taxi
     # via openai
+    # via together
 pydantic-core==2.18.2
     # via pydantic
+pygments==2.18.0
+    # via rich
 pyparsing==3.1.2
     # via httplib2
 requests==2.31.0
     # via google-api-core
+    # via together
+rich==13.7.1
+    # via typer
 rsa==4.9
     # via google-auth
+shellingham==1.5.4
+    # via typer
 sniffio==1.3.1
     # via anyio
     # via httpx
     # via openai
 socksio==1.0.0
     # via httpx
+tabulate==0.9.0
+    # via together
+together==1.1.5
+    # via llm-taxi
 tqdm==4.66.4
     # via google-generativeai
     # via openai
+    # via together
+typer==0.12.3
+    # via together
 typing-extensions==4.11.0
     # via anyio
     # via google-generativeai
     # via openai
     # via pydantic
     # via pydantic-core
+    # via typer
 uritemplate==4.1.1
     # via google-api-python-client
 urllib3==2.2.1
     # via requests
+yarl==1.9.4
+    # via aiohttp

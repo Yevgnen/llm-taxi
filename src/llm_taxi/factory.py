@@ -1,10 +1,12 @@
 import os
+from collections.abc import Mapping
 
-from llm_taxi.llm import LLM, Google, OpenAI
+from llm_taxi.llm import LLM, Google, OpenAI, Together
 
-MODEL_CLASSES: dict[str, type[LLM]] = {
+MODEL_CLASSES: Mapping[str, type[LLM]] = {
     "openai": OpenAI,
     "google": Google,
+    "together": Together,
 }
 
 
