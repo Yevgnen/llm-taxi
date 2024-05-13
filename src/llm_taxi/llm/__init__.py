@@ -1,3 +1,4 @@
+from llm_taxi.llm.anthropic import Anthropic
 from llm_taxi.llm.base import LLM
 from llm_taxi.llm.google import Google
 from llm_taxi.llm.groq import Groq
@@ -10,4 +11,5 @@ __all__ = [
     "Google",
     "Together",
     "Groq",
+    "Anthropic",
 ]

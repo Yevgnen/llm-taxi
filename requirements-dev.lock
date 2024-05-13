@@ -14,7 +14,10 @@ aiosignal==1.3.1
     # via aiohttp
 annotated-types==0.6.0
     # via pydantic
+anthropic==0.25.8
+    # via llm-taxi
 anyio==4.3.0
+    # via anthropic
     # via groq
     # via httpx
     # via openai
@@ -34,6 +37,7 @@ click==8.1.7
     # via together
     # via typer
 distro==1.9.0
+    # via anthropic
     # via groq
     # via openai
 eval-type-backport==0.2.0
@@ -41,10 +45,13 @@ eval-type-backport==0.2.0
 exceptiongroup==1.2.1
     # via anyio
 filelock==3.14.0
+    # via huggingface-hub
     # via together
 frozenlist==1.4.1
     # via aiohttp
     # via aiosignal
+fsspec==2024.3.1
+    # via huggingface-hub
 google-ai-generativelanguage==0.6.2
     # via google-generativeai
 google-api-core==2.19.0
@@ -81,9 +88,12 @@ httplib2==0.22.0
     # via google-api-python-client
     # via google-auth-httplib2
 httpx==0.27.0
+    # via anthropic
     # via groq
     # via llm-taxi
     # via openai
+huggingface-hub==0.23.0
+    # via tokenizers
 idna==3.7
     # via anyio
     # via httpx
@@ -101,6 +111,8 @@ numpy==1.26.4
     # via together
 openai==1.28.1
     # via llm-taxi
+packaging==24.0
+    # via huggingface-hub
 pillow==10.3.0
     # via together
 proto-plus==1.23.0
@@ -121,6 +133,7 @@ pyasn1==0.6.0
 pyasn1-modules==0.4.0
     # via google-auth
 pydantic==2.7.1
+    # via anthropic
     # via google-generativeai
     # via groq
     # via llm-taxi
@@ -132,8 +145,11 @@ pygments==2.18.0
     # via rich
 pyparsing==3.1.2
     # via httplib2
+pyyaml==6.0.1
+    # via huggingface-hub
 requests==2.31.0
     # via google-api-core
+    # via huggingface-hub
     # via together
 rich==13.7.1
     # via typer
@@ -142,6 +158,7 @@ rsa==4.9
 shellingham==1.5.4
     # via typer
 sniffio==1.3.1
+    # via anthropic
     # via anyio
     # via groq
     # via httpx
@@ -152,16 +169,21 @@ tabulate==0.9.0
     # via together
 together==1.1.5
     # via llm-taxi
+tokenizers==0.19.1
+    # via anthropic
 tqdm==4.66.4
     # via google-generativeai
+    # via huggingface-hub
     # via openai
     # via together
 typer==0.12.3
     # via together
 typing-extensions==4.11.0
+    # via anthropic
     # via anyio
     # via google-generativeai
     # via groq
+    # via huggingface-hub
     # via openai
     # via pydantic
     # via pydantic-core
