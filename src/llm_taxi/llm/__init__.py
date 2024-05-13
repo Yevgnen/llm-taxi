@@ -1,6 +1,7 @@
 from llm_taxi.llm.anthropic import Anthropic
 from llm_taxi.llm.base import LLM
 from llm_taxi.llm.deepinfra import DeepInfra
+from llm_taxi.llm.deepseek import DeepSeek
 from llm_taxi.llm.google import Google
 from llm_taxi.llm.groq import Groq
 from llm_taxi.llm.mistral import Mistral
@@ -18,4 +19,5 @@ __all__ = [
     "Mistral",
     "Perplexity",
     "DeepInfra",
+    "DeepSeek",
 ]

@@ -5,6 +5,7 @@ from llm_taxi.llm import (
     LLM,
     Anthropic,
     DeepInfra,
+    DeepSeek,
     Google,
     Groq,
     Mistral,
@@ -22,6 +23,7 @@ MODEL_CLASSES: Mapping[str, type[LLM]] = {
     "mistral": Mistral,
     "perplexity": Perplexity,
     "deepinfra": DeepInfra,
+    "deepseek": DeepSeek,
 }
 
 
