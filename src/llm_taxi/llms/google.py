@@ -1,13 +1,13 @@
 import itertools
 from collections.abc import AsyncGenerator
-from typing import Any
+from typing import Any, ClassVar
 
 from llm_taxi.conversation import Message, Role
 from llm_taxi.llms import LLM
 
 
 class Google(LLM):
-    env_vars: dict[str, str] = {
+    env_vars: ClassVar[dict[str, str]] = {
         "api_key": "GOOGLE_API_KEY",
     }
 

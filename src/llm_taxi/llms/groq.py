@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from groq import AsyncGroq
 from groq.types.chat.completion_create_params import Message as GroqMessage
@@ -8,7 +8,7 @@ from llm_taxi.llms.openai import OpenAI
 
 
 class Groq(OpenAI):
-    env_vars: dict[str, str] = {
+    env_vars: ClassVar[dict[str, str]] = {
         "api_key": "GROQ_API_KEY",
     }
 

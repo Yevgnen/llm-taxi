@@ -1,5 +1,5 @@
 from collections.abc import AsyncGenerator
-from typing import Any
+from typing import Any, ClassVar
 
 from mistralai.async_client import MistralAsyncClient
 from mistralai.models.chat_completion import ChatMessage
@@ -9,7 +9,7 @@ from llm_taxi.llms.openai import OpenAI
 
 
 class Mistral(OpenAI):
-    env_vars: dict[str, str] = {
+    env_vars: ClassVar[dict[str, str]] = {
         "api_key": "MISTRAL_API_KEY",
     }
 

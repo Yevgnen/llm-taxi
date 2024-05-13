@@ -1,12 +1,12 @@
 from collections.abc import AsyncGenerator
-from typing import Any
+from typing import Any, ClassVar
 
 from llm_taxi.conversation import Message
 from llm_taxi.llms import LLM
 
 
 class OpenAI(LLM):
-    env_vars: dict[str, str] = {
+    env_vars: ClassVar[dict[str, str]] = {
         "api_key": "OPENAI_API_KEY",
     }
 

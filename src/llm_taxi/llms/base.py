@@ -1,12 +1,12 @@
 import abc
 from collections.abc import AsyncGenerator
-from typing import Any
+from typing import Any, ClassVar
 
 from llm_taxi.conversation import Message
 
 
 class LLM(metaclass=abc.ABCMeta):
-    env_vars: dict[str, str] = {}
+    env_vars: ClassVar[dict[str, str]] = {}
 
     def __init__(
         self,

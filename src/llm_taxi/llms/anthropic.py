@@ -1,5 +1,5 @@
 from collections.abc import AsyncGenerator
-from typing import Any, Literal, cast
+from typing import Any, ClassVar, Literal, cast
 
 from anthropic import AsyncAnthropic
 from anthropic._types import NOT_GIVEN, NotGiven
@@ -10,7 +10,7 @@ from llm_taxi.llms.base import LLM
 
 
 class Anthropic(LLM):
-    env_vars: dict[str, str] = {
+    env_vars: ClassVar[dict[str, str]] = {
         "api_key": "ANTHROPIC_API_KEY",
     }
 

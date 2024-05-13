@@ -1,10 +1,10 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from llm_taxi.llms import OpenAI
 
 
 class Together(OpenAI):
-    env_vars: dict[str, str] = {
+    env_vars: ClassVar[dict[str, str]] = {
         "api_key": "TOGETHER_API_KEY",
     }
 
