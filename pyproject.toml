@@ -1,6 +1,6 @@
 [project]
 name = "llm-taxi"
-version = "0.0.0"
+version = "0.1.0"
 description = "Add your description here"
 authors = [
     { name = "Yevgnen Koh", email = "wherejoystarts@gmail.com" }
