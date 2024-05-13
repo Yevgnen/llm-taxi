@@ -37,7 +37,7 @@ class Google(LLM):
     def _init_client(self, **kwargs) -> Any:
         from google import generativeai as genai
 
-        return genai.GenerativeModel(self.model)
+        return genai.GenerativeModel(self.model, **kwargs)
 
     def _convert_messages(self, messages: list[Message]) -> list[Any]:
         role_mappping = {
