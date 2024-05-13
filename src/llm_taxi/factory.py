@@ -1,9 +1,10 @@
 import os
 
-from llm_taxi.llm import LLM, OpenAI
+from llm_taxi.llm import LLM, Google, OpenAI
 
 MODEL_CLASSES: dict[str, type[LLM]] = {
     "openai": OpenAI,
+    "google": Google,
 }
 
 

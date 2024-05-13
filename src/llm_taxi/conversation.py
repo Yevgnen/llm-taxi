@@ -4,8 +4,9 @@ from pydantic import BaseModel, ConfigDict
 
 
 class Role(Enum):
-    USER = "user"
-    ASSISTANT = "assistant"
+    System = "system"
+    User = "user"
+    Assistant = "assistant"
 
 
 class Message(BaseModel):
