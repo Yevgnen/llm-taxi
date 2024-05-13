@@ -51,11 +51,12 @@ def llm(
         msg = f"Unknown LLM provider: {provider}"
         raise ValueError(msg)
 
-    env_vars = model_class.env_vars
-    env_var_values: dict[str, str] = {
-        k: param if (param := locals().get(k)) is not None else _get_env(v)
-        for k, v in env_vars.items()
-    }
+    env_var_values: dict[str, str] = {}
+    for key, env_name in model_class.env_vars.items():
+        value = (
+            params if (params := locals().get(key)) is not None else _get_env(env_name)
+        )
+        env_var_values[key] = value
 
     return model_class(
         model=model,
