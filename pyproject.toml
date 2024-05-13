@@ -1,7 +1,7 @@
 [project]
 name = "llm-taxi"
 version = "0.1.1"
-description = "Add your description here"
+description = "Call LLM as easily as calling a taxi."
 authors = [{ name = "Yevgnen Koh", email = "wherejoystarts@gmail.com" }]
 dependencies = [
     "openai>=1.28.1",
