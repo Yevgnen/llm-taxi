@@ -10,6 +10,7 @@ from llm_taxi.llm import (
     Groq,
     Mistral,
     OpenAI,
+    OpenRouter,
     Perplexity,
     Together,
 )
@@ -24,6 +25,7 @@ MODEL_CLASSES: Mapping[str, type[LLM]] = {
     "perplexity": Perplexity,
     "deepinfra": DeepInfra,
     "deepseek": DeepSeek,
+    "openrouter": OpenRouter,
 }
 
 
