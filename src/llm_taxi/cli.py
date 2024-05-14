@@ -22,7 +22,11 @@ async def async_main():
     call_kwargs = {
         "max_tokens": args.max_tokens,
     }
-    model = llm(model=args.model, call_kwargs=call_kwargs)
+    try:
+        model = llm(model=args.model, call_kwargs=call_kwargs)
+    except KeyError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
     while True:
         try:
