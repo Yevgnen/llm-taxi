@@ -1,5 +1,7 @@
 import os
 from collections.abc import Mapping
+from enum import Enum
+from typing import cast
 
 from llm_taxi.llms import (
     LLM,
@@ -16,18 +18,33 @@ from llm_taxi.llms import (
     Together,
 )
 
-MODEL_CLASSES: Mapping[str, type[LLM]] = {
-    "openai": OpenAI,
-    "google": Google,
-    "together": Together,
-    "groq": Groq,
-    "anthropic": Anthropic,
-    "mistral": Mistral,
-    "perplexity": Perplexity,
-    "deepinfra": DeepInfra,
-    "deepseek": DeepSeek,
-    "openrouter": OpenRouter,
-    "dashscope": DashScope,
+
+class Provider(Enum):
+    OpenAI = "openai"
+    Google = "google"
+    Together = "together"
+    Groq = "groq"
+    Anthropic = "anthropic"
+    Mistral = "mistral"
+    Perplexity = "perplexity"
+    DeepInfra = "deepinfra"
+    DeepSeek = "deepseek"
+    OpenRouter = "openrouter"
+    DashScope = "dashscope"
+
+
+MODEL_CLASSES: Mapping[Provider, type[LLM]] = {
+    Provider.OpenAI: OpenAI,
+    Provider.Google: Google,
+    Provider.Together: Together,
+    Provider.Groq: Groq,
+    Provider.Anthropic: Anthropic,
+    Provider.Mistral: Mistral,
+    Provider.Perplexity: Perplexity,
+    Provider.DeepInfra: DeepInfra,
+    Provider.DeepSeek: DeepSeek,
+    Provider.OpenRouter: OpenRouter,
+    Provider.DashScope: DashScope,
 }
 
 
@@ -62,11 +79,15 @@ def llm(
         ValueError: If the specified provider is unknown.
         KeyError: If a required environment variable is not found.
     """
-    provider, model = model.split(":", 1)
-    if not (model_class := MODEL_CLASSES.get(provider)):
-        msg = f"Unknown LLM provider: {provider}"
+    provider_name, model = model.split(":", 1)
+
+    try:
+        provider = cast(Provider, Provider(provider_name))
+    except ValueError:
+        msg = f"Unknown LLM provider: {provider_name}"
         raise ValueError(msg)
 
+    model_class = MODEL_CLASSES[provider]
     env_var_values: dict[str, str] = {}
     for key, env_name in model_class.env_vars.items():
         value = (
