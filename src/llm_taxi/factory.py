@@ -46,6 +46,22 @@ def llm(
     call_kwargs: dict | None = None,
     **client_kwargs,
 ) -> LLM:
+    """Initialize and return an instance of a specified LLM (Large Language Model) provider.
+
+    Args:
+        model (str): The model identifier in the format 'provider:model_name'.
+        api_key (str | None, optional): The API key for authentication. Defaults to None.
+        base_url (str | None, optional): The base URL for the API. Defaults to None.
+        call_kwargs (dict | None, optional): Additional keyword arguments for the API call. Defaults to None.
+        **client_kwargs: Additional keyword arguments for the LLM client initialization.
+
+    Returns:
+        LLM: An instance of the specified LLM provider.
+
+    Raises:
+        ValueError: If the specified provider is unknown.
+        KeyError: If a required environment variable is not found.
+    """
     provider, model = model.split(":", 1)
     if not (model_class := MODEL_CLASSES.get(provider)):
         msg = f"Unknown LLM provider: {provider}"
