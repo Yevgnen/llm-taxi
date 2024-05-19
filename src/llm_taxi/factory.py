@@ -83,9 +83,9 @@ def llm(
 
     try:
         provider = cast(Provider, Provider(provider_name))
-    except ValueError:
+    except ValueError as error:
         msg = f"Unknown LLM provider: {provider_name}"
-        raise ValueError(msg)
+        raise ValueError(msg) from error
 
     model_class = MODEL_CLASSES[provider]
     env_var_values: dict[str, str] = {}
