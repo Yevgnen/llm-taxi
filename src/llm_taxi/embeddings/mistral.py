@@ -16,11 +16,11 @@ class MistralEmbedding(Embedding):
         return MistralAsyncClient(**kwargs)
 
     async def embed_text(self, text: str) -> list[float]:
-        response = self.client.embeddings(model=self.model, input=text)
+        response = await self.client.embeddings(model=self.model, input=text)
 
         return response.data[0].embedding
 
     async def embed_texts(self, texts: list[str]) -> list[list[float]]:
-        response = self.client.embeddings(model=self.model, input=texts)
+        response = await self.client.embeddings(model=self.model, input=texts)
 
         return [x.embedding for x in response.data]
