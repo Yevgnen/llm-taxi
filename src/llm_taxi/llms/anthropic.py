@@ -1,22 +1,15 @@
 from collections.abc import AsyncGenerator
-from typing import Any, ClassVar, Literal, cast
+from typing import Any, Literal, cast
 
-from anthropic import AsyncAnthropic
 from anthropic._types import NOT_GIVEN, NotGiven
 from anthropic.types import MessageParam
 
+from llm_taxi.clients.anthropic import Anthropic as AnthropicClient
 from llm_taxi.conversation import Message, Role
 from llm_taxi.llms.base import LLM
 
 
-class Anthropic(LLM):
-    env_vars: ClassVar[dict[str, str]] = {
-        "api_key": "ANTHROPIC_API_KEY",
-    }
-
-    def _init_client(self, **kwargs) -> Any:
-        return AsyncAnthropic(**kwargs)
-
+class Anthropic(AnthropicClient, LLM):
     def _convert_messages(self, messages: list[Message]) -> list[Any]:
         return [
             MessageParam(

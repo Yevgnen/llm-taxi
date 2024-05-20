@@ -1,10 +1,6 @@
-from typing import ClassVar
-
+from llm_taxi.clients.openrouter import OpenRouter as OpenRouterClient
 from llm_taxi.llms.openai import OpenAI
 
 
-class OpenRouter(OpenAI):
-    env_vars: ClassVar[dict[str, str]] = {
-        "api_key": "OPENROUTER_API_KEY",
-        "base_url": "OPENROUTER_BASE_URL",
-    }
+class OpenRouter(OpenRouterClient, OpenAI):
+    pass

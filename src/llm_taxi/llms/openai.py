@@ -1,25 +1,18 @@
 from collections.abc import AsyncGenerator
-from typing import Any, ClassVar
+from typing import Any
 
+from llm_taxi.clients.openai import OpenAI as OpenAIClient
 from llm_taxi.conversation import Message
-from llm_taxi.llms import LLM
+from llm_taxi.llms.base import LLM
 
 
-class OpenAI(LLM):
-    env_vars: ClassVar[dict[str, str]] = {
-        "api_key": "OPENAI_API_KEY",
-    }
+async def streaming_response(response: Any) -> AsyncGenerator:
+    async for chunk in response:
+        if content := chunk.choices[0].delta.content:
+            yield content
 
-    def _init_client(self, **kwargs) -> Any:
-        from openai import AsyncClient
 
-        return AsyncClient(**kwargs)
-
-    async def _streaming_response(self, response: Any) -> AsyncGenerator:
-        async for chunk in response:
-            if content := chunk.choices[0].delta.content:
-                yield content
-
+class OpenAI(OpenAIClient, LLM):
     async def streaming_response(
         self,
         messages: list[Message],
@@ -33,7 +26,7 @@ class OpenAI(LLM):
             **self._get_call_kwargs(**kwargs),
         )
 
-        return self._streaming_response(response)
+        return streaming_response(response)
 
     async def response(self, messages: list[Message], **kwargs) -> str:
         messages = self._convert_messages(messages)

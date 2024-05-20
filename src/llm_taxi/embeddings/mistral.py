@@ -1,20 +1,8 @@
-from typing import Any, ClassVar
-
-from mistralai.async_client import MistralAsyncClient
-
+from llm_taxi.clients.mistral import Mistral
 from llm_taxi.embeddings.base import Embedding
 
 
-class MistralEmbedding(Embedding):
-    env_vars: ClassVar[dict[str, str]] = {
-        "api_key": "MISTRAL_API_KEY",
-    }
-
-    def _init_client(self, **kwargs) -> Any:
-        kwargs.pop("base_url", None)
-
-        return MistralAsyncClient(**kwargs)
-
+class MistralEmbedding(Mistral, Embedding):
     async def embed_text(self, text: str) -> list[float]:
         response = await self.client.embeddings(model=self.model, input=text)
 

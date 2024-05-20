@@ -3,14 +3,8 @@ from collections.abc import Mapping
 from enum import Enum
 from typing import Any, TypeVar, cast
 
-from llm_taxi.embeddings import (
-    Embedding,
-    GoogleEmbedding,
-    MistralEmbedding,
-    OpenAIEmbedding,
-)
+from llm_taxi.embeddings import GoogleEmbedding, MistralEmbedding, OpenAIEmbedding
 from llm_taxi.llms import (
-    LLM,
     Anthropic,
     DashScope,
     DeepInfra,
@@ -39,7 +33,20 @@ class Provider(Enum):
     DashScope = "dashscope"
 
 
-MODEL_CLASSES: Mapping[Provider, type[LLM]] = {
+MODEL_CLASSES: Mapping[
+    Provider,
+    type[OpenAI]
+    | type[Google]
+    | type[Together]
+    | type[Groq]
+    | type[Anthropic]
+    | type[Mistral]
+    | type[Perplexity]
+    | type[DeepInfra]
+    | type[DeepSeek]
+    | type[OpenRouter]
+    | type[DashScope],
+] = {
     Provider.OpenAI: OpenAI,
     Provider.Google: Google,
     Provider.Together: Together,
@@ -53,7 +60,10 @@ MODEL_CLASSES: Mapping[Provider, type[LLM]] = {
     Provider.DashScope: DashScope,
 }
 
-EMBEDDING_CLASSES: Mapping[Provider, type[Embedding]] = {
+EMBEDDING_CLASSES: Mapping[
+    Provider,
+    type[GoogleEmbedding] | type[OpenAIEmbedding] | type[MistralEmbedding],
+] = {
     Provider.OpenAI: OpenAIEmbedding,
     Provider.Mistral: MistralEmbedding,
     Provider.Google: GoogleEmbedding,
@@ -73,8 +83,8 @@ def _get_env(key: str) -> str:
 
 def _get_class_name_and_class(
     model: str,
-    class_dict: Mapping[Provider, type[T]],
-) -> tuple[str, type[T]]:
+    class_dict: Mapping[Provider, type],
+) -> tuple[str, type]:
     provider_name, model = model.split(":", 1)
 
     try:
@@ -87,7 +97,22 @@ def _get_class_name_and_class(
 
 
 def _get_params(
-    cls: type[LLM | Embedding],
+    cls: (
+        type[OpenAI]
+        | type[Google]
+        | type[Together]
+        | type[Groq]
+        | type[Anthropic]
+        | type[Mistral]
+        | type[Perplexity]
+        | type[DeepInfra]
+        | type[DeepSeek]
+        | type[OpenRouter]
+        | type[DashScope]
+        | type[GoogleEmbedding]
+        | type[OpenAIEmbedding]
+        | type[MistralEmbedding]
+    ),
     local_vars: dict[str, Any],
 ) -> dict[str, str]:
     env_var_values: dict[str, str] = {}
@@ -108,7 +133,19 @@ def llm(
     base_url: str | None = None,
     call_kwargs: dict | None = None,
     **client_kwargs,
-) -> LLM:
+) -> (
+    OpenAI
+    | Google
+    | Together
+    | Groq
+    | Anthropic
+    | Mistral
+    | Perplexity
+    | DeepInfra
+    | DeepSeek
+    | OpenRouter
+    | DashScope
+):
     """Initialize and return an instance of a specified LLM (Large Language Model) provider.
 
     Args:
@@ -142,7 +179,7 @@ def embedding(
     base_url: str | None = None,
     call_kwargs: dict | None = None,
     **client_kwargs,
-) -> Embedding:
+) -> GoogleEmbedding | OpenAIEmbedding | MistralEmbedding:
     """Initialize and return an instance of a specified embedding provider.
 
     Args:

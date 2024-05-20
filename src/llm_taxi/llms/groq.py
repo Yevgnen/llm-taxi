@@ -1,20 +1,13 @@
-from typing import Any, ClassVar
+from typing import Any
 
-from groq import AsyncGroq
 from groq.types.chat.completion_create_params import Message as GroqMessage
 
+from llm_taxi.clients.groq import Groq as GroqClient
 from llm_taxi.conversation import Message
 from llm_taxi.llms.openai import OpenAI
 
 
-class Groq(OpenAI):
-    env_vars: ClassVar[dict[str, str]] = {
-        "api_key": "GROQ_API_KEY",
-    }
-
-    def _init_client(self, **kwargs) -> Any:
-        return AsyncGroq(**kwargs)
-
+class Groq(GroqClient, OpenAI):
     def _convert_messages(self, messages: list[Message]) -> list[Any]:
         return [
             GroqMessage(
