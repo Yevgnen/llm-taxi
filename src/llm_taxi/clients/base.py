@@ -1,7 +1,9 @@
-from typing import Any, ClassVar
+from typing import ClassVar, Generic, TypeVar
+
+T = TypeVar("T")
 
 
-class Client:
+class Client(Generic[T]):
     env_vars: ClassVar[dict[str, str]] = {}
 
     def __init__(
@@ -31,10 +33,10 @@ class Client:
         return self._model
 
     @property
-    def client(self) -> Any:
+    def client(self) -> T:
         return self._client
 
-    def _init_client(self, **kwargs) -> Any:
+    def _init_client(self, **kwargs) -> T:
         raise NotImplementedError
 
     def _get_call_kwargs(self, **kwargs) -> dict:
