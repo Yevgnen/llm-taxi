@@ -14,7 +14,7 @@ Use as a library
 import asyncio
 
 from llm_taxi.conversation import Message, Role
-from llm_taxi.factory import llm
+from llm_taxi.factory import embedding, llm
 
 
 async def main():
@@ -33,6 +33,16 @@ async def main():
     response = await client.streaming_response(messages)
     async for chunk in response:
         print(chunk, end="", flush=True)
+    print()
+
+    embedder = embedding("openai:text-embedding-ada-002")
+    embeddings = await embedder.embed_text("Hello, world!")
+    print(embeddings[:10])
+
+    embedder = embedding("mistral:mistral-embed")
+    embeddings = await embedder.embed_texts(["Hello, world!"])
+    print(embeddings[0][:10])
+
 
 
 if __name__ == "__main__":
@@ -51,7 +61,9 @@ See all supported arguments
 llm-taxi --help
 ```
 
-## Supported LLM Providers
+## Supported Providers
+
+### LLMs
 
 - Anthropic
 - DashScope
@@ -64,3 +76,9 @@ llm-taxi --help
 - OpenRouter
 - Perplexity
 - Together
+
+### Embeddings
+
+- Google
+- Mistral
+- OpenAI
