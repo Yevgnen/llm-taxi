@@ -63,19 +63,19 @@ llm-taxi --help
 
 ## Supported Providers
 
-### LLMs
-
-- Anthropic
-- DashScope
-- DeepInfra
-- DeepSeek
-- Google
-- Groq
-- Mistral
-- OpenAI
-- OpenRouter
-- Perplexity
-- Together
+|  Provider  | LLM | Embedding |
+| :--------: | :-: | :-------: |
+| Anthropic  | ✅  |           |
+| DashScope  | ✅  |           |
+| DeepInfra  | ✅  |           |
+|  DeepSeek  | ✅  |           |
+|   Google   | ✅  |    ✅     |
+|    Groq    | ✅  |           |
+|  Mistral   | ✅  |    ✅     |
+|   OpenAI   | ✅  |    ✅     |
+| OpenRouter | ✅  |           |
+| Perplexity | ✅  |           |
+|  Together  | ✅  |           |
 
 ### Embeddings
 
