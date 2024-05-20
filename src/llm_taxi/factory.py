@@ -3,7 +3,12 @@ from collections.abc import Mapping
 from enum import Enum
 from typing import Any, TypeVar, cast
 
-from llm_taxi.embeddings import Embedding, MistralEmbedding, OpenAIEmbedding
+from llm_taxi.embeddings import (
+    Embedding,
+    GoogleEmbedding,
+    MistralEmbedding,
+    OpenAIEmbedding,
+)
 from llm_taxi.llms import (
     LLM,
     Anthropic,
@@ -51,6 +56,7 @@ MODEL_CLASSES: Mapping[Provider, type[LLM]] = {
 EMBEDDING_CLASSES: Mapping[Provider, type[Embedding]] = {
     Provider.OpenAI: OpenAIEmbedding,
     Provider.Mistral: MistralEmbedding,
+    Provider.Google: GoogleEmbedding,
 }
 
 
