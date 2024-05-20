@@ -35,6 +35,7 @@ class Google(LLM):
         self._call_kwargs.pop("model", None)
 
     def _init_client(self, **kwargs) -> Any:
+        kwargs = {k: v for k, v in kwargs.items() if k not in {"api_key", "base_url"}}
         from google import generativeai as genai
 
         return genai.GenerativeModel(self.model, **kwargs)
