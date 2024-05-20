@@ -15,6 +15,18 @@ class Client(Generic[T]):
         call_kwargs: dict | None = None,
         **client_kwargs,
     ) -> None:
+        """Initialize the Client instance.
+
+        Args:
+            model (str): The model to be used.
+            api_key (str): The API key for authentication.
+            base_url (str, optional): The base URL for the API. Defaults to None.
+            call_kwargs (dict, optional): Additional keyword arguments for the API call. Defaults to None.
+            **client_kwargs: Additional keyword arguments for the client initialization.
+
+        Returns:
+            None
+        """
         if not call_kwargs:
             call_kwargs = {}
 
