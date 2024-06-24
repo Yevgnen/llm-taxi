@@ -1,6 +1,6 @@
 import abc
 from collections.abc import AsyncGenerator
-from typing import Any
+from typing import Any, ClassVar
 
 from llm_taxi.conversation import Message
 
@@ -18,6 +18,8 @@ class LLM(metaclass=abc.ABCMeta):
         response(messages: list[Message], **kwargs) -> str:
             Abstract method to be implemented by subclasses to generate a non-streaming response.
     """
+
+    call_kwargs_mapping: ClassVar[dict[str, str]] = {}
 
     def _convert_messages(self, messages: list[Message]) -> list[Any]:
         return [
