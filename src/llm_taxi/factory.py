@@ -6,6 +6,7 @@ from typing import Any, TypeVar, cast
 from llm_taxi.embeddings import GoogleEmbedding, MistralEmbedding, OpenAIEmbedding
 from llm_taxi.llms import (
     Anthropic,
+    BigModel,
     DashScope,
     DeepInfra,
     DeepSeek,
@@ -31,6 +32,7 @@ class Provider(Enum):
     DeepSeek = "deepseek"
     OpenRouter = "openrouter"
     DashScope = "dashscope"
+    BigModel = "bigmodel"
 
 
 MODEL_CLASSES: Mapping[
@@ -45,7 +47,8 @@ MODEL_CLASSES: Mapping[
     | type[DeepInfra]
     | type[DeepSeek]
     | type[OpenRouter]
-    | type[DashScope],
+    | type[DashScope]
+    | type[BigModel],
 ] = {
     Provider.OpenAI: OpenAI,
     Provider.Google: Google,
@@ -58,6 +61,7 @@ MODEL_CLASSES: Mapping[
     Provider.DeepSeek: DeepSeek,
     Provider.OpenRouter: OpenRouter,
     Provider.DashScope: DashScope,
+    Provider.BigModel: BigModel,
 }
 
 EMBEDDING_CLASSES: Mapping[
@@ -145,6 +149,7 @@ def llm(
     | DeepSeek
     | OpenRouter
     | DashScope
+    | BigModel
 ):
     """Initialize and return an instance of a specified LLM (Large Language Model) provider.
 
