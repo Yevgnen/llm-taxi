@@ -1,11 +1,14 @@
 import abc
 from collections.abc import AsyncGenerator
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Generic, TypeVar
 
 from llm_taxi.conversation import Message
 
 
-class LLM(metaclass=abc.ABCMeta):
+T = TypeVar("T")
+
+
+class LLM(Generic[T], metaclass=abc.ABCMeta):
     """Abstract base class for Large Language Models (LLMs).
 
     This class provides a template for LLM implementations, including methods for converting
@@ -21,14 +24,8 @@ class LLM(metaclass=abc.ABCMeta):
 
     call_kwargs_mapping: ClassVar[dict[str, str]] = {}
 
-    def _convert_messages(self, messages: list[Message]) -> list[Any]:
-        return [
-            {
-                "role": message.role.value,
-                "content": message.content,
-            }
-            for message in messages
-        ]
+    def _convert_messages(self, messages: list[Message]) -> T:
+        raise NotImplementedError
 
     @abc.abstractmethod
     async def streaming_response(

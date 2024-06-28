@@ -1,5 +1,5 @@
-from collections.abc import AsyncGenerator
-from typing import Any, Literal, cast
+from collections.abc import AsyncGenerator, Iterable
+from typing import Literal, cast
 
 from anthropic._types import NOT_GIVEN, NotGiven
 from anthropic.types import MessageParam
@@ -10,7 +10,7 @@ from llm_taxi.llms.base import LLM
 
 
 class Anthropic(AnthropicClient, LLM):
-    def _convert_messages(self, messages: list[Message]) -> list[Any]:
+    def _convert_messages(self, messages: list[Message]) -> Iterable[MessageParam]:
         return [
             MessageParam(
                 role=cast(Literal["user", "assistant"], message.role.value),
@@ -44,11 +44,10 @@ class Anthropic(AnthropicClient, LLM):
         **kwargs,
     ) -> AsyncGenerator:
         system_message = self._get_system_message_content(messages)
-        messages = self._convert_messages(messages)
 
         response = await self.client.messages.create(
             system=system_message,
-            messages=messages,
+            messages=self._convert_messages(messages),
             stream=True,
             **self._get_call_kwargs(max_tokens=max_tokens, **kwargs),
         )
@@ -62,11 +61,10 @@ class Anthropic(AnthropicClient, LLM):
         **kwargs,
     ) -> str:
         system_message = self._get_system_message_content(messages)
-        messages = self._convert_messages(messages)
 
         response = await self.client.messages.create(
             system=system_message,
-            messages=messages,
+            messages=self._convert_messages(messages),
             **self._get_call_kwargs(max_tokens=max_tokens, **kwargs),
         )
 

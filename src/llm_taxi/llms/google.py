@@ -1,6 +1,6 @@
 import itertools
 from collections.abc import AsyncGenerator
-from typing import Any, ClassVar
+from typing import ClassVar
 
 from llm_taxi.clients.google import Google as GoogleClient
 from llm_taxi.conversation import Message, Role
@@ -12,7 +12,7 @@ class Google(GoogleClient, LLM):
         "max_tokens": "max_output_tokens",
     }
 
-    def _convert_messages(self, messages: list[Message]) -> list[Any]:
+    def _convert_messages(self, messages: list[Message]) -> list[dict]:
         role_mappping = {
             Role.System: "user",
             Role.User: "user",
@@ -50,10 +50,8 @@ class Google(GoogleClient, LLM):
     ) -> AsyncGenerator:
         from google import generativeai as genai
 
-        messages = self._convert_messages(messages)
-
         response = await self.client.generate_content_async(
-            messages,
+            self._convert_messages(messages),
             stream=True,
             generation_config=genai.types.GenerationConfig(
                 **self._get_call_kwargs(**kwargs),
@@ -65,10 +63,8 @@ class Google(GoogleClient, LLM):
     async def response(self, messages: list[Message], **kwargs) -> str:
         from google import generativeai as genai
 
-        messages = self._convert_messages(messages)
-
         response = await self.client.generate_content_async(
-            messages,
+            self._convert_messages(messages),
             generation_config=genai.types.GenerationConfig(
                 **self._get_call_kwargs(**kwargs),
             ),
