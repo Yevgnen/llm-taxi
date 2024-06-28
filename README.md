@@ -77,9 +77,3 @@ llm-taxi --help
 | Perplexity | ✅  |           |
 |  Together  | ✅  |           |
 |  BigModel  | ✅  |           |
-
-### Embeddings
-
-- Google
-- Mistral
-- OpenAI
