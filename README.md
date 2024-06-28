@@ -76,6 +76,7 @@ llm-taxi --help
 | OpenRouter | ✅  |           |
 | Perplexity | ✅  |           |
 |  Together  | ✅  |           |
+|  BigModel  | ✅  |           |
 
 ### Embeddings
 
